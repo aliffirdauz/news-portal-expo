@@ -1,9 +1,12 @@
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
-import { auth } from '../db/firebase';
+import { auth, firestore } from '../db/firebase';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore'
 
 export default function Register() {
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -31,10 +34,15 @@ export default function Register() {
         else {
             auth
                 .createUserWithEmailAndPassword(email, password)
-                .then(userCredentials => {
-                    const user = userCredentials.user;
-                    console.log('Registered with:', user.email);
-                    alert('Registered!', `Registered with: ${user.email}`);
+                .then((result) => {
+                    firestore.collection("users")
+                        .doc(auth.currentUser.uid)
+                        .set({
+                            name: name,
+                            email: email,
+                            creation: firebase.firestore.FieldValue.serverTimestamp()
+                        })
+                    console.log(result)
                     navigation.navigate('Login');
                 })
                 .catch(error => alert(error.message))
@@ -51,7 +59,13 @@ export default function Register() {
             behavior="padding"
         >
             <View style={styles.inputContainer}>
-                <Text style={styles.title}>Smart Roof</Text>
+                <Text style={styles.title}>News Portal</Text>
+                <TextInput
+                    placeholder="Name"
+                    value={name}
+                    onChangeText={text => setName(text)}
+                    style={styles.input}
+                />
                 <TextInput
                     placeholder="Email"
                     value={email}

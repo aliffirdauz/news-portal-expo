@@ -4,6 +4,8 @@ import React from 'react';
 import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 import Main from './src/components/Main';
+import Add from './src/screens/Add';
+import Save from './src/screens/Save';
 
 export default function App() {
 
@@ -15,6 +17,8 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Add" component={Add} />
+        <Stack.Screen name="Save" component={Save} />
       </Stack.Navigator>
     </NavigationContainer>
   );

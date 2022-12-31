@@ -4,15 +4,13 @@ import { useNavigation } from '@react-navigation/core'
 import { auth } from '../db/firebase';
 
 export default function Login() {
-    const [name, setName] = useState('')
-    const [address, setAddress] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const navigation = useNavigation()
 
     const handleSignUp = () => {
-        navigation.navigate('Register');
+        navigation.navigate('Register')
     }
 
     const handleLogin = () => {
@@ -20,7 +18,7 @@ export default function Login() {
             .signInWithEmailAndPassword(email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;
-                console.warn('Logged in with:', user.email);
+                console.log('Logged in with:', user.email);
                 navigation.navigate('Main');
             })
             .catch(error => alert(error.message))

@@ -3,13 +3,13 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAt-zYwLxzbJ2sYrDxTB3tk9vnl0fnwEcU",
-  authDomain: "friday-jastpl.firebaseapp.com",
-  databaseURL: "https://friday-jastpl.firebaseio.com",
-  projectId: "friday-jastpl",
-  storageBucket: "friday-jastpl.appspot.com",
-  messagingSenderId: "784440502434",
-  appId: "1:784440502434:web:18b2851dd81131fa654ffb"
+  apiKey: "AIzaSyDhoqP_OFIrUB5wcL6ap0EeIEZgblkvAw8",
+  authDomain: "news-portal-ac370.firebaseapp.com",
+  projectId: "news-portal-ac370",
+  storageBucket: "news-portal-ac370.appspot.com",
+  messagingSenderId: "718274836",
+  appId: "1:718274836:web:14e777568e3908a8f78201",
+  measurementId: "G-RN8WJ4JXNN"
 };
 
 let app;
