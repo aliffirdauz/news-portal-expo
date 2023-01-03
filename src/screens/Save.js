@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Image, TextInput, View } from 'react-native'
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
 import firebase from 'firebase/compat/app';
@@ -11,7 +11,7 @@ export default function Save(props) {
     const [caption, setCaption] = useState('')
 
     const navigation = useNavigation();
-    
+
     const uploadImage = async () => {
         const uri = props.route.params.image
         const childPath = `post/${firebase.auth().currentUser.uid}/${Math.random().toString(36)}`
@@ -59,13 +59,60 @@ export default function Save(props) {
     }
 
     return (
-        <View style={{ flex: 1 }}>
-            <Image source={{ uri: props.route.params.image }} style={{ flex: 1 }} />
+        <View style={styles.container}>
+            <View style={styles.imageContainer}>
+                <Image source={{ uri: props.route.params.image }} style={styles.image} />
+            </View>
             <TextInput
+                style={styles.input}
                 placeholder="Write a caption . . ."
                 onChangeText={(caption) => setCaption(caption)}
             />
-            <Button title="Save" onPress={() => uploadImage()} />
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => uploadImage()}
+            >
+                <Text style={styles.buttonText}>Save</Text>
+            </TouchableOpacity>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    imageContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        padding: 15
+    },
+    image: {
+        flex: 1,
+        aspectRatio: 1 / 1,
+        borderRadius: 15
+    },
+    input: {
+        margin: 10,
+        height: 50,
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 10,
+        width: 300
+    },
+    button: {
+        backgroundColor: 'blue',
+        padding: 10,
+        borderRadius: 5,
+        margin: 10
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 20
+    }
+});

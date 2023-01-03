@@ -1,76 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, TextInput, Image, Button } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Image, Button } from 'react-native';
 import { Camera } from 'expo-camera';
-import * as ImagePicker from 'expo-image-picker';
-
-import firebase from 'firebase/compat/app';
-require("firebase/compat/firestore")
-require("firebase/compat/storage")
-
-function Save(props) {
-  const [caption, setCaption] = useState('')
-
-  const uploadImage = async () => {
-    const uri = props.route.params.image
-    const childPath = `post/${firebase.auth().currentUser.uid}/${Math.random().toString(36)}`
-    console.log(childPath)
-
-    const response = await fetch(uri)
-    const blob = await response.blob()
-
-    const task = firebase
-      .storage()
-      .ref()
-      .child(childPath)
-      .put(blob)
-
-    const taskProgress = snapshot => {
-      console.log(`transferred: ${snapshot.bytesTransferred}`)
-    }
-
-    const taskCompleted = () => {
-      task.snapshot.ref.getDownloadURL().then((snapshot) => {
-        savePostData(snapshot)
-        console.log(snapshot)
-      })
-    }
-
-    const taskError = snapshot => {
-      console.log(snapshot)
-    }
-
-    task.on("state_changed", taskProgress, taskError, taskCompleted)
-  }
-
-  const savePostData = (downloadURL) => {
-    firebase.firestore()
-      .collection("posts")
-      .doc(firebase.auth().currentUser.uid)
-      .collection("userPosts")
-      .add({
-        downloadURL,
-        caption,
-        creation: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(function () {
-        props.navigation.popToTop()
-      })
-  }
-
-  return (
-    <View style={{ flex: 1 }}>
-      <Image source={{ uri: props.route.params.image }} style={{ flex: 1 }} />
-      <TextInput
-        placeholder="Write a caption . . ."
-        onChangeText={(caption) => setCaption(caption)}
-      />
-      <Button title="Save" onPress={() => uploadImage()} />
-    </View>
-  )
-}
 
 export default function Add({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
-  const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -79,10 +12,6 @@ export default function Add({ navigation }) {
     (async () => {
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === 'granted');
-
-      const galleryStatus = await ImagePicker.requestCameraPermissionsAsync();
-      setHasGalleryPermission(galleryStatus.status === 'granted');
-
     })();
   }, []);
 
@@ -94,27 +23,11 @@ export default function Add({ navigation }) {
     }
   }
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
-  };
-
-  if (hasCameraPermission === null || hasGalleryPermission === null) {
+  if (hasCameraPermission === null) {
     return <View />;
   }
 
-  if (hasCameraPermission === false || hasGalleryPermission === false) {
+  if (hasCameraPermission === false) {
     return <Text>No access to camera</Text>;
   }
 
@@ -122,23 +35,45 @@ export default function Add({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.cameraContainer}>
-        <Camera ref={ref => setCamera(ref)} style={styles.fixedRation} type={type} ratio={'1:1'} />
+        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <Camera ref={ref => setCamera(ref)} style={styles.fixedRation} type={type} ratio={'1:1'} />
+          {image && <Image source={{ uri: image }} style={{ flex: 1, aspectRatio: 1 / 1 }} />}
+        </View>
       </View>
-      <Button
-        title="Flip Image"
-        onPress={() => {
-          setType(
-            type === Camera.Constants.Type.back
-              ? Camera.Constants.Type.front
-              : Camera.Constants.Type.back
-          );
-        }
-        }>
-      </Button>
-      <Button title="Take Picture" onPress={() => takePicture()} />
-      <Button title="Pick Image" onPress={() => pickImage()} />
-      <Button title="Save Image" onPress={() => navigation.navigate('Save', { image })} />
-      {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
+      <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            setType(
+              type === Camera.Constants.Type.back
+                ? Camera.Constants.Type.front
+                : Camera.Constants.Type.back
+            );
+          }
+          }>
+          <Text
+            style={styles.buttonText}
+          >Flip</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => takePicture()}
+        >
+          <Text
+            style={styles.buttonText}
+          >Take Picture</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Save', { image })}
+        >
+          <Text
+            style={styles.buttonText}
+          >Save</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -150,6 +85,22 @@ const styles = StyleSheet.create({
   },
   fixedRation: {
     flex: 1,
-    aspectRatio: 1
+    aspectRatio: 1 / 1
+  },
+  button: {
+    margin: 10,
+    padding: 10,
+    width: 150,
+    alignItems: 'center',
+    backgroundColor: 'blue',
+    borderRadius: 5
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white'
+  },
+  text: {
+    fontSize: 18,
+    color: 'white'
   }
 });

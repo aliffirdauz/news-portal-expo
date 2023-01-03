@@ -1,6 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { auth, firestore } from '../db/firebase'
+
+import firebase from 'firebase/compat/app';
+require("firebase/compat/firestore")
 
 export default function Profile() {
   const [name, setName] = useState('')
@@ -52,20 +55,10 @@ export default function Profile() {
             data={posts}
             renderItem={({ item }) => (
               <View style={styles.containerImage}>
-                {/* <Text style={styles.container}>{item.user.name}</Text> */}
                 <Image
                   style={styles.image}
                   source={{ uri: item.downloadURL }}
                 />
-                <Text
-                // onPress={() =>
-                //   props.navigation.navigate('Comment',
-                //   { postId: item.id, uid: item.user.uid })
-                // }
-                >
-                  View Comments...
-                </Text>
-
               </View>
             )}
           />
