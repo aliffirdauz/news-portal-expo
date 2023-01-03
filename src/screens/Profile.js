@@ -1,11 +1,11 @@
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { auth, firestore } from '../db/firebase'
 
 import firebase from 'firebase/compat/app';
 require("firebase/compat/firestore")
 
-export default function Profile() {
+export default function Profile({navigation}) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [posts, setPosts] = useState([])
@@ -43,35 +43,43 @@ export default function Profile() {
       })
   }, [])
 
+  const signOut = () => {
+    auth.signOut()
+    navigation.navigate('Login')
+  }
+
   return (
     <View style={styles.container} >
-      <View style={styles.containerInfo} >
-        <Text>{name}</Text>
-        <Text>{email}</Text>
-        <View style={styles.containerGallery} >
-          <FlatList
-            numColumns={1}
-            horizontal={false}
-            data={posts}
-            renderItem={({ item }) => (
-              <View style={styles.containerImage}>
-                <Image
-                  style={styles.image}
-                  source={{ uri: item.downloadURL }}
-                />
-              </View>
-            )}
-          />
-        </View>
+      <View style={styles.containerInfo}>
+        <Text style={styles.text}>{name}</Text>
+        <Text style={styles.text}>{email}</Text>
+        <TouchableOpacity style={styles.button} onPress={signOut}>
+          <Text style={styles.text}>Sign Out</Text>
+        </TouchableOpacity>
       </View>
+      <View style={styles.containerGallery}>
+        <FlatList
+          numColumns={3}
+          horizontal={false}
+          data={posts}
+          renderItem={({ item }) => (
+            <View style={styles.containerImage}>
+              <Image
+                style={styles.image}
+                source={{ uri: item.downloadURL }}
+              />
+            </View>
+          )}
+        />
+      </View>
+
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: 40
+    flex: 1
   },
   containerInfo: {
     margin: 20
@@ -84,7 +92,18 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    aspectRatio: 1 / 1
+    aspectRatio: 1 / 1,
+    width: 160,
+    height: 160
   },
-
+  text: {
+    fontSize: 20
+  },
+  button: {
+    width: '20%',
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10
+  }
 })

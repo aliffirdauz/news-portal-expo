@@ -38,6 +38,8 @@ export default function Add({ navigation }) {
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <Camera ref={ref => setCamera(ref)} style={styles.fixedRation} type={type} ratio={'1:1'} />
           {image && <Image source={{ uri: image }} style={{ flex: 1, aspectRatio: 1 / 1 }} />}
+          {!image && <View style={{ flex: 1, aspectRatio: 1 / 1 }} />}
+          
         </View>
       </View>
       <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
