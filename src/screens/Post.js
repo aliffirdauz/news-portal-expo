@@ -2,7 +2,7 @@ import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'r
 import React, { useState, useEffect } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 
-export default function Post({navigation}) {
+export default function Post({ navigation }) {
     const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
     const [image, setImage] = useState(null);
 
@@ -55,15 +55,19 @@ export default function Post({navigation}) {
                     style={styles.buttonText}
                 >Pick Image</Text>
             </TouchableOpacity>
-            {image && <Image source={{ uri: image }} style={styles.image} />}
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate('Save', { image })}
-            >
-                <Text
-                    style={styles.buttonText}
-                >Save</Text>
-            </TouchableOpacity>
+            {image &&
+                <>
+                    <Image source={{ uri: image }} style={styles.image} />
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => navigation.navigate('Save', { image })}
+                    >
+                        <Text
+                            style={styles.buttonText}
+                        >Save</Text>
+                    </TouchableOpacity>
+                </>
+            }
         </SafeAreaView>
     )
 }

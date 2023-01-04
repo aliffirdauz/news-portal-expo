@@ -53,7 +53,17 @@ export default function Save(props) {
                 downloadURL,
                 caption,
                 creation: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(function () {
+            }).then(
+                firebase.firestore()
+                    .collection("allPosts")
+                    .add({
+                        downloadURL,
+                        caption,
+                        creation: firebase.firestore.FieldValue.serverTimestamp(),
+                        uid: firebase.auth().currentUser.uid,
+                        status: 'Pending'
+                    })
+            ).then(function () {
                 navigation.navigate('Feed')
             })
     }

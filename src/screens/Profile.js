@@ -54,7 +54,7 @@ export default function Profile({navigation}) {
         <Text style={styles.text}>{name}</Text>
         <Text style={styles.text}>{email}</Text>
         <TouchableOpacity style={styles.button} onPress={signOut}>
-          <Text style={styles.text}>Sign Out</Text>
+          <Text style={styles.textbutton}>Sign Out</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.containerGallery}>
@@ -100,10 +100,14 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   button: {
-    width: '20%',
     backgroundColor: 'red',
     padding: 10,
     borderRadius: 10,
     marginTop: 10
+  },
+  textbutton: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 20
   }
 })

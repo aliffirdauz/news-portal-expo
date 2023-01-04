@@ -16,6 +16,8 @@ export default function Login() {
     const handleLogin = () => {
         if ((email == "admin") && (password == "admin")) {
             navigation.navigate('User')
+            setEmail('')
+            setPassword('')
             return
         }
         auth
@@ -26,6 +28,9 @@ export default function Login() {
                 navigation.navigate('Main');
             })
             .catch(error => alert(error.message))
+        
+        setEmail('')
+        setPassword('')
     }
 
     return (
