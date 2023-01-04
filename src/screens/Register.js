@@ -86,17 +86,17 @@ export default function Register() {
                     style={styles.input}
                     secureTextEntry
                 />
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        onPress={handleSignUp}
+                        style={styles.button}
+                    >
+                        <Text style={styles.buttonText}>Register</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.footerText}>Already have an account? <Text onPress={handleLogin} style={styles.footerLink}>Login</Text></Text>
+                </View>
             </View>
 
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                    onPress={handleSignUp}
-                    style={styles.button}
-                >
-                    <Text style={styles.buttonText}>Register</Text>
-                </TouchableOpacity>
-                <Text style={styles.footerText}>Already have an account? <Text onPress={handleLogin} style={styles.footerLink}>Login</Text></Text>
-            </View>
         </KeyboardAvoidingView>
     )
 }
@@ -106,9 +106,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#FD8A8A',
     },
     inputContainer: {
-        width: '80%'
+        width: '80%',
+        backgroundColor: '#F1F7B5',
+        padding: 10,
+        borderRadius: 10,
     },
     input: {
         backgroundColor: 'white',
@@ -121,14 +125,13 @@ const styles = StyleSheet.create({
 
     },
     buttonContainer: {
-        width: '59%',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 40,
         flexDirection: 'column',
     },
     button: {
-        backgroundColor: '#0782F9',
+        backgroundColor: '#9EA1D4',
         width: '100%',
         padding: 15,
         borderRadius: 10,
@@ -165,7 +168,7 @@ const styles = StyleSheet.create({
         color: '#000000',
     },
     footerLink: {
-        color: "#788eec",
+        color: "#9EA1D4",
         fontWeight: "bold",
         fontSize: 16
     }

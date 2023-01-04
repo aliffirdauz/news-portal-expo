@@ -10,7 +10,6 @@ export default function Post({ navigation }) {
         (async () => {
             const galleryStatus = await ImagePicker.requestCameraPermissionsAsync();
             setHasGalleryPermission(galleryStatus.status === 'granted');
-
         })();
     }, []);
 
@@ -38,14 +37,14 @@ export default function Post({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Post</Text>
+            <Text style={styles.title}>ADD POST</Text>
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => navigation.navigate('Add')}
             >
                 <Text
                     style={styles.buttonText}
-                >Add</Text>
+                >Take Picture</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.button}
@@ -75,20 +74,26 @@ export default function Post({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        backgroundColor: '#FD8A8A'
     },
     title: {
-        fontSize: 24,
+        marginTop: 20,
+        fontSize: 80,
         fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        color: 'white'
     },
     button: {
-        backgroundColor: '#f15454',
+        width: '80%',
+        backgroundColor: '#9EA1D4',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
-        margin: 10
+        margin: 10,
+        alignSelf: 'center'
     },
     buttonText: {
         color: 'white',
@@ -100,6 +105,7 @@ const styles = StyleSheet.create({
         width: 400,
         height: 400,
         borderRadius: 15,
-        marginTop: 20
+        marginTop: 20,
+        alignSelf: 'center'
     }
 })

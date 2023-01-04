@@ -8,6 +8,7 @@ import Add from './src/screens/Add';
 import Save from './src/screens/Save';
 import User from './src/screens/Admin/User';
 import Dashboard from './src/screens/Admin/Dashboard';
+import DetailPost from './src/screens/DetailPost';
 
 export default function App() {
 
@@ -16,13 +17,14 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Add" component={Add} />
         <Stack.Screen name="Save" component={Save} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="User" component={User} />
+        <Stack.Screen name="DetailPost" component={DetailPost} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -8,7 +8,8 @@ require("firebase/compat/storage")
 
 
 export default function Save(props) {
-    const [caption, setCaption] = useState('')
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
 
     const navigation = useNavigation();
 
@@ -51,14 +52,16 @@ export default function Save(props) {
             .collection("userPosts")
             .add({
                 downloadURL,
-                caption,
+                title,
+                description,
                 creation: firebase.firestore.FieldValue.serverTimestamp()
             }).then(
                 firebase.firestore()
                     .collection("allPosts")
                     .add({
                         downloadURL,
-                        caption,
+                        title,
+                        description,
                         creation: firebase.firestore.FieldValue.serverTimestamp(),
                         uid: firebase.auth().currentUser.uid,
                         status: 'Pending'
@@ -70,13 +73,21 @@ export default function Save(props) {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.title}>ADD POST</Text>
             <View style={styles.imageContainer}>
                 <Image source={{ uri: props.route.params.image }} style={styles.image} />
             </View>
             <TextInput
                 style={styles.input}
-                placeholder="Write a caption . . ."
-                onChangeText={(caption) => setCaption(caption)}
+                placeholder="Write a title"
+                onChangeText={(title) => setTitle(title)}
+            />
+            <TextInput
+                multiline
+                numberOfLines={4}
+                style={[styles.input, {height: 100}]}
+                placeholder="Write a description"
+                onChangeText={(description) => setDescription(description)}
             />
             <TouchableOpacity
                 style={styles.button}
@@ -91,9 +102,7 @@ export default function Save(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#FD8A8A'
     },
     imageContainer: {
         flexDirection: 'row',
@@ -109,20 +118,34 @@ const styles = StyleSheet.create({
     input: {
         margin: 10,
         height: 50,
-        borderColor: 'gray',
-        borderWidth: 1,
+        backgroundColor: 'white',
         borderRadius: 10,
         padding: 10,
-        width: 300
+        width: 400,
+        alignSelf: 'center',
     },
     button: {
-        backgroundColor: 'blue',
+        backgroundColor: '#9EA1D4',
         padding: 10,
-        borderRadius: 5,
-        margin: 10
+        borderRadius: 10,
+        margin: 10,
+        width: 300,
+        alignSelf: 'center',
     },
     buttonText: {
         color: 'white',
-        fontSize: 20
-    }
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    title: {
+        marginTop: 20,
+        fontSize: 80,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        color: 'white'
+    },
 });

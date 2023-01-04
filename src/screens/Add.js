@@ -33,13 +33,12 @@ export default function Add({ navigation }) {
 
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <View style={styles.cameraContainer}>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <Camera ref={ref => setCamera(ref)} style={styles.fixedRation} type={type} ratio={'1:1'} />
           {image && <Image source={{ uri: image }} style={{ flex: 1, aspectRatio: 1 / 1 }} />}
           {!image && <View style={{ flex: 1, aspectRatio: 1 / 1 }} />}
-          
         </View>
       </View>
       <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
@@ -81,9 +80,14 @@ export default function Add({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FD8A8A'
+  },
   cameraContainer: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: 30
   },
   fixedRation: {
     flex: 1,
@@ -94,7 +98,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 150,
     alignItems: 'center',
-    backgroundColor: 'blue',
+    backgroundColor: '#9EA1D4',
     borderRadius: 5
   },
   buttonText: {

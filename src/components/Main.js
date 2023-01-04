@@ -9,10 +9,19 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function Main() {
   return (
-    <Tab.Navigator>
-        <Tab.Screen name="Feed" component={Feed} />
-        <Tab.Screen name="Post" component={Post} />
-        <Tab.Screen name="Profile" component={Profile} />
+    <Tab.Navigator screenOptions={
+      {
+        headerShown: false,
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: '#A8D1D1',
+        tabBarStyle: { backgroundColor: '#FD8A8A' },
+        tabBarLabelStyle: { fontWeight: 'bold' },
+        tabBarIndicatorStyle: { backgroundColor: '#F1F7B5' }
+      }
+    }>
+      <Tab.Screen name="Feed" component={Feed} />
+      <Tab.Screen name="Post" component={Post} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   )
 }
