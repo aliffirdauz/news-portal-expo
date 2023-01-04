@@ -7,6 +7,7 @@ import Main from './src/components/Main';
 import Add from './src/screens/Add';
 import Save from './src/screens/Save';
 import User from './src/screens/Admin/User';
+import Dashboard from './src/screens/Admin/Dashboard';
 
 export default function App() {
 
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Add" component={Add} />
         <Stack.Screen name="Save" component={Save} />
+        <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="User" component={User} />
       </Stack.Navigator>
     </NavigationContainer>

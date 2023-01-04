@@ -15,7 +15,7 @@ export default function Login() {
 
     const handleLogin = () => {
         if ((email == "admin") && (password == "admin")) {
-            navigation.navigate('User')
+            navigation.navigate('Dashboard')
             setEmail('')
             setPassword('')
             return

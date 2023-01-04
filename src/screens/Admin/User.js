@@ -7,27 +7,6 @@ require("firebase/compat/firestore")
 
 export default function User() {
     const [userList, setUserList] = useState([])
-    const [posts, setPosts] = useState([])
-
-    useEffect(() => {
-        firebase.firestore()
-            .collection("allPosts")
-            .orderBy("creation", "asc")
-            .get()
-            .then((snapshot) => {
-                const dataPost = []
-                snapshot.docs.map(doc => {
-                    dataPost.push({
-                        id: doc.id,
-                        caption: doc.data().caption,
-                        creation: doc.data().creation,
-                        downloadURL: doc.data().downloadURL,
-                        uid: doc.data().uid,
-                    })
-                })
-                setPosts(dataPost);
-            })
-    }, [])
 
     useEffect(() => {
         firestore
@@ -49,22 +28,6 @@ export default function User() {
 
     return (
         <View style={styles.container}>
-            <ScrollView>
-                <View style={styles.containerInfo}>
-                    <FlatList
-                        numColumns={1}
-                        horizontal={false}
-                        data={posts}
-                        renderItem={({ item }) => (
-                            <View style={styles.containerImage}>
-                                <Image
-                                    style={styles.image}
-                                    source={{ uri: item.downloadURL }}
-                                />
-                            </View>
-                        )}
-                    />
-                </View>
                 <View style={styles.containerGallery}>
                     <Text
                         style={styles.title}
@@ -81,7 +44,6 @@ export default function User() {
                         )}
                     />
                 </View>
-            </ScrollView>
         </View>
     )
 }
