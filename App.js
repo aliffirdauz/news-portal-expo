@@ -9,6 +9,7 @@ import Save from './src/screens/Save';
 import User from './src/screens/Admin/User';
 import Dashboard from './src/screens/Admin/Dashboard';
 import DetailPost from './src/screens/DetailPost';
+import News from './src/screens/News';
 
 export default function App() {
 
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="User" component={User} />
         <Stack.Screen name="DetailPost" component={DetailPost} />
+        <Stack.Screen name="News" component={News} />
       </Stack.Navigator>
     </NavigationContainer>
   );

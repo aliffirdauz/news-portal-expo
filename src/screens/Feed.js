@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 15,
     backgroundColor: '#A8D1D1',
+    padding: 25
   },
   image: {
     flex: 1,

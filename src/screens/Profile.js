@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     borderRadius: 15,
-    // backgroundColor: '#F1F7B5',
     margin: 5,
     padding: 5,
     flex: 1

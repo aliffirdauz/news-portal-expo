@@ -37,36 +37,38 @@ export default function Post({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>ADD POST</Text>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate('Add')}
-            >
-                <Text
-                    style={styles.buttonText}
-                >Take Picture</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => pickImage()}
-            >
-                <Text
-                    style={styles.buttonText}
-                >Pick Image</Text>
-            </TouchableOpacity>
-            {image &&
-                <>
-                    <Image source={{ uri: image }} style={styles.image} />
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => navigation.navigate('Save', { image })}
-                    >
-                        <Text
-                            style={styles.buttonText}
-                        >Save</Text>
-                    </TouchableOpacity>
-                </>
-            }
+            <View style={styles.box}>
+                <Text style={styles.title}>ADD POST</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate('Add')}
+                >
+                    <Text
+                        style={styles.buttonText}
+                    >Take Picture</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => pickImage()}
+                >
+                    <Text
+                        style={styles.buttonText}
+                    >Pick Image</Text>
+                </TouchableOpacity>
+                {image &&
+                    <>
+                        <Image source={{ uri: image }} style={styles.image} />
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => navigation.navigate('Save', { image })}
+                        >
+                            <Text
+                                style={styles.buttonText}
+                            >Save</Text>
+                        </TouchableOpacity>
+                    </>
+                }
+            </View>
         </SafeAreaView>
     )
 }
@@ -75,6 +77,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FD8A8A'
+    },
+    box: {
+        backgroundColor: '#A8D1D1',
+        width: '90%',
+        height: '90%',
+        borderRadius: 15,
+        alignSelf: 'center',
+        margin: 20
     },
     title: {
         marginTop: 20,

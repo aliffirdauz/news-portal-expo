@@ -4,6 +4,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Feed from '../screens/Feed'
 import Post from '../screens/Post'
 import Profile from '../screens/Profile'
+import News from '../screens/News'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -21,6 +22,7 @@ export default function Main() {
     }>
       <Tab.Screen name="Feed" component={Feed} />
       <Tab.Screen name="Post" component={Post} />
+      <Tab.Screen name="News" component={News} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   )
