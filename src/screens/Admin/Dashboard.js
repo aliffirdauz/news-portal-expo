@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 import firebase from 'firebase/compat/app';
@@ -47,6 +47,14 @@ export default function Dashboard({ navigation }) {
                                 style={styles.image}
                                 source={{ uri: item.downloadURL }}
                             />
+                            <TouchableOpacity
+                                onPress={() => Alert.alert('Update', 'Are you sure you want to accept this post?', [
+                                { text: 'Yes', onPress: () => firebase.firestore().collection('posts').doc(firebase.auth().currentUser.uid).collection('userPosts').doc(item.id).update() },
+                                { text: 'No' }
+                                ])}
+                            >
+                                <Text style={[styles.text, { padding: 10 }]}>Confirm</Text>
+                            </TouchableOpacity>
                         </View>
                     )}
                 />
@@ -70,12 +78,13 @@ const styles = StyleSheet.create({
         margin: 20
     },
     image: {
-        flex: 1,
+        // flex: 1,
         aspectRatio: 1 / 1
     },
     text: {
         fontSize: 20,
-        color: 'white'
+        color: 'black',
+        textAlign: 'center'
     },
     button: {
         backgroundColor: 'black',
