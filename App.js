@@ -11,6 +11,7 @@ import Dashboard from './src/screens/Admin/Dashboard';
 import DetailPost from './src/screens/DetailPost';
 import News from './src/screens/News';
 import SearchNews from './src/screens/SearchNews';
+import DetailNews from './src/screens/DetailNews';
 
 export default function App() {
 
@@ -29,6 +30,7 @@ export default function App() {
         <Stack.Screen name="DetailPost" component={DetailPost} />
         <Stack.Screen name="News" component={SearchNews} />
         <Stack.Screen name="DetailNews" component={News} />
+        <Stack.Screen name="DetailNewsReal" component={DetailNews} />
       </Stack.Navigator>
     </NavigationContainer>
   );

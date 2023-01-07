@@ -30,16 +30,8 @@ export default function News({ navigation, route: { params: { category, subCateg
 
     const getCategory = () => {
         switch (category) {
-            case 'us':
-                return 'United States';
-            case 'in':
-                return 'India';
-            case 'gb':
-                return 'United Kingdom';
             case 'au':
                 return 'Australia';
-            case 'br':
-                return 'Brazil';
             case 'ca':
                 return 'Canada';
             case 'cn':
@@ -48,36 +40,22 @@ export default function News({ navigation, route: { params: { category, subCateg
                 return 'France';
             case 'de':
                 return 'Germany';
-            case 'hk':
-                return 'Hong Kong';
+            case 'in':
+                return 'India';
+            case 'id':
+                return 'Indonesia';
             case 'it':
                 return 'Italy';
             case 'jp':
                 return 'Japan';
-            case 'mx':
-                return 'Mexico';
             case 'ru':
                 return 'Russia';
-            case 'sa':
-                return 'Saudi Arabia';
-            case 'sg':
-                return 'Singapore';
-            case 'za':
-                return 'South Africa';
             case 'kr':
                 return 'South Korea';
-            case 'es':
-                return 'Spain';
-            case 'se':
-                return 'Sweden';
-            case 'ch':
-                return 'Switzerland';
-            case 'tw':
-                return 'Taiwan';
-            case 'th':
-                return 'Thailand';
-            case 'tr':
-                return 'Turkey';
+            case 'gb':
+                return 'United Kingdom';
+            case 'us':
+                return 'United States';
             default:
                 return 'United States';
         }
@@ -106,12 +84,12 @@ export default function News({ navigation, route: { params: { category, subCateg
         <View style={styles.container} >
             <View style={styles.dropDownContainer}>
                 <View style={styles.dropDown}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Country</Text>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{getCategory()}</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Country</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{getCategory()}</Text>
                 </View>
                 <View style={styles.dropDown}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Category</Text>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{getSubCategory()}</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Category</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{getSubCategory()}</Text>
                 </View>
             </View>
             <FlatList
@@ -124,7 +102,14 @@ export default function News({ navigation, route: { params: { category, subCateg
                 renderItem={({ item }) => (
                     <View style={styles.containerImage}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate("DetailPost", { postId: item.id, uid: item.uid })}
+                            onPress={() => navigation.navigate('DetailNewsReal', {
+                                title: item.title,
+                                description: item.description,
+                                url: item.url,
+                                urlToImage: item.urlToImage,
+                                publishedAt: item.publishedAt,
+                                content: item.content
+                            })}
                         >
                             <Image
                                 style={styles.image}

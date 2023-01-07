@@ -72,7 +72,16 @@ export default function SearchNews({ navigation }) {
                     />
                 </View>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('DetailNews', { category: category, subCategory: subCategory, apiKey: apiKey })}
+                    onPress={() => {
+                        if ((category == "") || (subCategory == "")) {
+                            alert("Please select a country and a category")
+                        }
+                        else {
+                            navigation.navigate('DetailNews', { category: category, subCategory: subCategory, apiKey: apiKey })
+                        }
+                    }}
+
+
                     style={styles.button}>
                     <Text style={styles.buttonText}>Search</Text>
                 </TouchableOpacity>
