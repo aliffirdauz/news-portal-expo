@@ -1,45 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, StyleSheet, Image, FlatList, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, RefreshControl, TouchableOpacity } from 'react-native';
 
-import firebase from 'firebase/compat/app';
-import DropDownPicker from 'react-native-dropdown-picker';
-require("firebase/compat/firestore")
 
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-export default function News({ navigation }) {
+export default function News({ navigation, route: { params: { category, subCategory, apiKey } } }) {
     const [posts, setPosts] = useState({})
-    const [open, setOpen] = useState(false)
-    const [open2, setOpen2] = useState(false)
-    const [items, setItems] = useState([
-        { label: 'Australia', value: 'au' },
-        { label: 'Canada', value: 'ca' },
-        { label: 'China', value: 'cn' },
-        { label: 'France', value: 'fr' },
-        { label: 'Germany', value: 'de' },
-        { label: 'India', value: 'in' },
-        { label: 'Indonesia', value: 'id' },
-        { label: 'Italy', value: 'it' },
-        { label: 'Japan', value: 'jp' },
-        { label: 'Russia', value: 'ru' },
-        { label: 'South Korea', value: 'kr' },
-        { label: 'United Kingdom', value: 'gb' },
-        { label: 'United States', value: 'us' },
-    ])
-    const [items2, setItems2] = useState([
-        { label: 'Business', value: 'business' },
-        { label: 'Entertainment', value: 'entertainment' },
-        { label: 'Health', value: 'health' },
-        { label: 'Science', value: 'science' },
-        { label: 'Sports', value: 'sports' },
-        { label: 'Technology', value: 'technology' },
-    ])
     const [refreshing, setRefreshing] = useState(false);
-    const [category, setCategory] = useState('id')
-    const [subCategory, setSubCategory] = useState('technology')
-    const apiKey = '52fd08c928cc47fe81ab5a083929d1ed'
 
     const onRefresh = useCallback(() => {
         (async () => {
@@ -47,7 +16,6 @@ export default function News({ navigation }) {
                 setPosts(data.articles);
             });
         })();
-        console.log(category)
         setRefreshing(true);
         wait(2000).then(() => setRefreshing(false));
     }, []);
@@ -60,41 +28,91 @@ export default function News({ navigation }) {
         })();
     }, [onRefresh]);
 
+    const getCategory = () => {
+        switch (category) {
+            case 'us':
+                return 'United States';
+            case 'in':
+                return 'India';
+            case 'gb':
+                return 'United Kingdom';
+            case 'au':
+                return 'Australia';
+            case 'br':
+                return 'Brazil';
+            case 'ca':
+                return 'Canada';
+            case 'cn':
+                return 'China';
+            case 'fr':
+                return 'France';
+            case 'de':
+                return 'Germany';
+            case 'hk':
+                return 'Hong Kong';
+            case 'it':
+                return 'Italy';
+            case 'jp':
+                return 'Japan';
+            case 'mx':
+                return 'Mexico';
+            case 'ru':
+                return 'Russia';
+            case 'sa':
+                return 'Saudi Arabia';
+            case 'sg':
+                return 'Singapore';
+            case 'za':
+                return 'South Africa';
+            case 'kr':
+                return 'South Korea';
+            case 'es':
+                return 'Spain';
+            case 'se':
+                return 'Sweden';
+            case 'ch':
+                return 'Switzerland';
+            case 'tw':
+                return 'Taiwan';
+            case 'th':
+                return 'Thailand';
+            case 'tr':
+                return 'Turkey';
+            default:
+                return 'United States';
+        }
+    }
+
+    const getSubCategory = () => {
+        switch (subCategory) {
+            case 'business':
+                return 'Business';
+            case 'entertainment':
+                return 'Entertainment';
+            case 'health':
+                return 'Health';
+            case 'science':
+                return 'Science';
+            case 'sports':
+                return 'Sports';
+            case 'technology':
+                return 'Technology';
+            default:
+                return 'Technology';
+        }
+    }
+
     return (
         <View style={styles.container} >
             <View style={styles.dropDownContainer}>
-                <DropDownPicker
-                    open={open}
-                    value={category}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setCategory}
-                    setItems={setItems}
-                    placeholder="Select a country"
-                    defaultValue={'id'}
-                    containerStyle={{ height: 40, width: 150, marginBottom: 10 }}
-                    style={{ backgroundColor: '#fafafa' }}
-                    itemStyle={{
-                        justifyContent: 'flex-start'
-                    }}
-                    dropDownStyle={{ backgroundColor: '#fafafa' }}
-                />
-                <DropDownPicker
-                    open={open2}
-                    value={subCategory}
-                    items={items2}
-                    setOpen={setOpen2}
-                    setValue={setSubCategory}
-                    setItems={setItems2}
-                    placeholder="Select a category"
-                    defaultValue={'technology'}
-                    containerStyle={{ height: 40, width: 150, marginBottom: 10 }}
-                    style={{ backgroundColor: '#fafafa' }}
-                    itemStyle={{
-                        justifyContent: 'flex-start'
-                    }}
-                    dropDownStyle={{ backgroundColor: '#fafafa' }}
-                />
+                <View style={styles.dropDown}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Country</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{getCategory()}</Text>
+                </View>
+                <View style={styles.dropDown}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Category</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{getSubCategory()}</Text>
+                </View>
             </View>
             <FlatList
                 refreshControl={
@@ -145,8 +163,16 @@ const styles = StyleSheet.create({
     },
     dropDownContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        margin: 20
+        justifyContent: 'space-around',
+        margin: 20,
+        backgroundColor: '#A8D1D1',
+        padding: 10,
+        borderRadius: 15
+    },
+    dropDown: {
+        flexDirection: 'column',
+        padding: 10,
+        borderRadius: 15
     },
     image: {
         flex: 1,

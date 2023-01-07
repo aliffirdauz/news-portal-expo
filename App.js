@@ -10,6 +10,7 @@ import User from './src/screens/Admin/User';
 import Dashboard from './src/screens/Admin/Dashboard';
 import DetailPost from './src/screens/DetailPost';
 import News from './src/screens/News';
+import SearchNews from './src/screens/SearchNews';
 
 export default function App() {
 
@@ -26,7 +27,8 @@ export default function App() {
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="User" component={User} />
         <Stack.Screen name="DetailPost" component={DetailPost} />
-        <Stack.Screen name="News" component={News} />
+        <Stack.Screen name="News" component={SearchNews} />
+        <Stack.Screen name="DetailNews" component={News} />
       </Stack.Navigator>
     </NavigationContainer>
   );

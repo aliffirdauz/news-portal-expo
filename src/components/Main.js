@@ -5,6 +5,7 @@ import Feed from '../screens/Feed'
 import Post from '../screens/Post'
 import Profile from '../screens/Profile'
 import News from '../screens/News'
+import SearchNews from '../screens/SearchNews'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -22,7 +23,7 @@ export default function Main() {
     }>
       <Tab.Screen name="Feed" component={Feed} />
       <Tab.Screen name="Post" component={Post} />
-      <Tab.Screen name="News" component={News} />
+      <Tab.Screen name="News" component={SearchNews} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   )
