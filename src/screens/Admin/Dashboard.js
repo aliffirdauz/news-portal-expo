@@ -11,6 +11,7 @@ export default function Dashboard({ navigation }) {
     useEffect(() => {
         firebase.firestore()
             .collection("allPosts")
+            .where("status", "==", "Pending")
             .orderBy("creation", "asc")
             .get()
             .then((snapshot) => {
@@ -45,7 +46,7 @@ export default function Dashboard({ navigation }) {
                         <View style={styles.containerImage}>
                             <TouchableOpacity
                                 onPress={() => Alert.alert('Update', 'Are you sure you want to accept this post?', [
-                                { text: 'Yes', onPress: () => firebase.firestore().collection('posts').doc(firebase.auth().currentUser.uid).collection('userPosts').doc(item.id).update() },
+                                { text: 'Yes', onPress: () => firebase.firestore().collection('allPosts').doc(item.id).update({status: "Approved"}).then(() => {console.log("Post Approved")})},
                                 { text: 'No' }
                                 ])}>
                                 <Image
