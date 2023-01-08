@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { auth, firestore } from '../db/firebase';
@@ -59,7 +59,10 @@ export default function Register() {
             behavior="padding"
         >
             <View style={styles.inputContainer}>
-                <Text style={styles.title}>News Portal</Text>
+                <Image
+                    style={styles.image}
+                    source={{ uri: 'https://docs.google.com/uc?export=download&id=1X2L5n1-FtpLQBGWuiT0eIP69CmHxUKWO' }}
+                />
                 <TextInput
                     placeholder="Name"
                     value={name}
@@ -108,6 +111,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#FD8A8A',
     },
+    image: {
+        flex: 1,
+        aspectRatio: 1 / 1,
+        borderRadius: 5,
+      },
     inputContainer: {
         width: '80%',
         backgroundColor: '#F1F7B5',

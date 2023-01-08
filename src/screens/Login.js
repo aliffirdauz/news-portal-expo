@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/core'
 import { auth } from '../db/firebase';
 
@@ -39,7 +39,10 @@ export default function Login() {
             behavior="height"
         >
             <View style={styles.inputContainer}>
-                <Text style={styles.title}>News Portal</Text>
+                <Image
+                    style={styles.image}
+                    source={{ uri: 'https://docs.google.com/uc?export=download&id=1X2L5n1-FtpLQBGWuiT0eIP69CmHxUKWO' }}
+                />
                 <TextInput
                     placeholder="Email"
                     value={email}
@@ -75,6 +78,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#FD8A8A'
     },
+    image: {
+        flex: 1,
+        aspectRatio: 1 / 1,
+        borderRadius: 5,
+      },
     inputContainer: {
         width: '80%',
         backgroundColor: '#F1F7B5',
