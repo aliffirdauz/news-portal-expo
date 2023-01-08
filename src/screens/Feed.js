@@ -12,6 +12,47 @@ export default function Feed({ navigation }) {
   const [posts, setPosts] = useState([])
   const [refreshing, setRefreshing] = useState(false);
 
+  // useEffect(() => {
+  //   firebase.firestore()
+  //     .collection("allPosts")
+  //     .where("status", "==", "approved")
+  //     .orderBy("creation", "asc")
+  //     .get()
+  //     .then((snapshot) => {
+  //       let posts = snapshot.docs.map(doc => {
+  //         const data = doc.data()
+  //         const id = doc.id
+  //         return { id, ...data }
+  //       })
+  //       posts.sort(function (x, y) {
+  //         return x.creation - y.creation;
+  //       })
+  //       console.log(posts);
+  //       setPosts(posts);
+  //     })
+  // }, [])
+
+  useEffect(() => {
+    firebase.firestore()
+      .collection("allPosts")
+      .where("status", "==", "Approved")
+      .orderBy("creation", "asc")
+      .get()
+      .then((snapshot) => {
+        const dataPost = []
+        snapshot.docs.map(doc => {
+          dataPost.push({
+            id: doc.id,
+            caption: doc.data().caption,
+            creation: doc.data().creation,
+            downloadURL: doc.data().downloadURL,
+            uid: doc.data().uid,
+          })
+        })
+        setPosts(dataPost);
+      })
+  }, [])
+
   const onRefresh = useCallback(() => {
     firebase.firestore()
       .collection("allPosts")
@@ -33,26 +74,6 @@ export default function Feed({ navigation }) {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
-
-  useEffect(() => {
-    firebase.firestore()
-      .collection("allPosts")
-      .where("status", "==", "approved")
-      .orderBy("creation", "asc")
-      .get()
-      .then((snapshot) => {
-        let posts = snapshot.docs.map(doc => {
-          const data = doc.data()
-          const id = doc.id
-          return { id, ...data }
-        })
-        posts.sort(function (x, y) {
-          return x.creation - y.creation;
-        })
-        console.log(posts);
-        setPosts(posts);
-      })
-  }, [onRefresh])
 
   return (
     <View style={styles.container} >
