@@ -43,18 +43,28 @@ export default function Dashboard({ navigation }) {
                     data={posts}
                     renderItem={({ item }) => (
                         <View style={styles.containerImage}>
-                            <Image
+                            <TouchableOpacity
+                                onPress={() => Alert.alert('Update', 'Are you sure you want to accept this post?', [
+                                { text: 'Yes', onPress: () => firebase.firestore().collection('posts').doc(firebase.auth().currentUser.uid).collection('userPosts').doc(item.id).update() },
+                                { text: 'No' }
+                                ])}>
+                                <Image
+                                    style={styles.image}
+                                    source={{ uri: item.downloadURL }}
+                                />
+                            </TouchableOpacity>
+                            {/* <Image
                                 style={styles.image}
                                 source={{ uri: item.downloadURL }}
-                            />
-                            <TouchableOpacity
+                            /> */}
+                            {/* <TouchableOpacity
                                 onPress={() => Alert.alert('Update', 'Are you sure you want to accept this post?', [
                                 { text: 'Yes', onPress: () => firebase.firestore().collection('posts').doc(firebase.auth().currentUser.uid).collection('userPosts').doc(item.id).update() },
                                 { text: 'No' }
                                 ])}
                             >
                                 <Text style={[styles.text, { padding: 10 }]}>Confirm</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                     )}
                 />
