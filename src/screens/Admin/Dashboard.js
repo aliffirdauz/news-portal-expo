@@ -19,9 +19,11 @@ export default function Dashboard({ navigation }) {
                 snapshot.docs.map(doc => {
                     dataPost.push({
                         id: doc.id,
-                        caption: doc.data().caption,
                         creation: doc.data().creation,
+                        description: doc.data().description,
                         downloadURL: doc.data().downloadURL,
+                        status: doc.data().status,
+                        title: doc.data().title,
                         uid: doc.data().uid,
                     })
                 })
@@ -29,9 +31,16 @@ export default function Dashboard({ navigation }) {
             })
     }, [])
 
+    const signOut = () => {
+        navigation.navigate('Login')
+      }
+
     return (
         <View style={styles.container}>
             <View style={styles.containerInfo}>
+                <TouchableOpacity style={styles.button} onPress={signOut}>
+                    <Text style={styles.textbutton}>Sign Out</Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => navigation.navigate('User')}
@@ -105,7 +114,8 @@ const styles = StyleSheet.create({
     },
     textbutton: {
         color: 'white',
-        fontSize: 20
+        fontSize: 20,
+        textAlign: 'center',
     }
     
 })
