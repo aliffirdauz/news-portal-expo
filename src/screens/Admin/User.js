@@ -51,6 +51,7 @@ export default function User() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#FD8A8A'
     },
     itemContainer: {
         width: '100%',
