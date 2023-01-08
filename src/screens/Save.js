@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
 import firebase from 'firebase/compat/app';
@@ -33,12 +33,14 @@ export default function Save(props) {
 
         const taskCompleted = () => {
             task.snapshot.ref.getDownloadURL().then((snapshot) => {
+                Alert.alert('Image Uploaded', 'Your image has been uploaded successfully')
                 savePostData(snapshot)
                 console.log(snapshot)
             })
         }
 
         const taskError = snapshot => {
+            Alert.alert('Error', 'Something went wrong')
             console.log(snapshot)
         }
 
@@ -72,7 +74,7 @@ export default function Save(props) {
     }
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
             <Text style={styles.title}>ADD POST</Text>
             <View style={styles.imageContainer}>
                 <Image source={{ uri: props.route.params.image }} style={styles.image} />
@@ -95,7 +97,7 @@ export default function Save(props) {
             >
                 <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

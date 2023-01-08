@@ -96,6 +96,8 @@ export default function Dashboard({ navigation }) {
         >
           <Text style={styles.textbutton}>Feed</Text>
         </TouchableOpacity>
+      </View>
+      <View style={styles.containerGallery}>
         <Text
           style={[
             styles.text,
@@ -133,6 +135,7 @@ export default function Dashboard({ navigation }) {
                                 "Information",
                                 "This Post Has Been Approved!"
                               );
+                              onRefresh()
                             }),
                       },
                       { text: "No" },
@@ -164,6 +167,12 @@ const styles = StyleSheet.create({
   },
   containerGallery: {
     flex: 1,
+    backgroundColor: "#A8D1D1",
+    margin: 20,
+    padding: 20,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
   containerImage: {
     flex: 1 / 3,
@@ -183,7 +192,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   button: {
-    // backgroundColor: 'black',
     padding: 10,
     borderRadius: 5,
     margin: 10,

@@ -79,14 +79,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#FD8A8A'
     },
     image: {
-        flex: 1,
         aspectRatio: 1 / 1,
         borderRadius: 5,
-      },
+    },
     inputContainer: {
-        width: '80%',
+        width: '90%',
         backgroundColor: '#F1F7B5',
-        padding: 10,
+        padding: 30,
         borderRadius: 10,
     },
     input: {

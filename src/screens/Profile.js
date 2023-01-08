@@ -145,7 +145,10 @@ export default function Profile({ navigation }) {
                             .doc(firebase.auth().currentUser.uid)
                             .collection("userPosts")
                             .doc(item.id)
-                            .delete(),
+                            .delete()
+                            .then(() => {
+                              onRefresh()
+                            })
                       },
                       { text: "No" },
                     ]
